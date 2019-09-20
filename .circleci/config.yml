@@ -17,13 +17,13 @@ jobs:
           name: Install mysql client
           command: yum install mysql -y
       - run:
-          name: Wait for db
+          name: Wait for database to initialize
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: Run the simulation
           command: gridlabd --debug --verbose test_mysql_collector.glm
       - run:
           name: Dump the database
-          command: mysqldump -h127.0.0.1 -uroot -pgridlabd gridlabd > dump.sql 
+          command: mysqldump -h127.0.0.1 -uroot -pgridlabd gridlabd > test_mysql_collector.sql 
       - store_artifacts:
           path: /root/project
