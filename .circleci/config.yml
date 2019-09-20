@@ -6,9 +6,6 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD=yes
-          MYSQL_USER=gridlabd
-          MYSQL_PASSWORD=gridlabd
-          MYSQL_DATABASE=gridlabd
     steps:
       - checkout
       - run:
@@ -24,6 +21,6 @@ jobs:
           command: gridlabd --debug --verbose test_mysql_collector.glm
       - run:
           name: Dump the database
-          command: mysqldump -uroot gridlabd > dump.sql 
+          command: mysqldump > dump.sql 
       - store_artifacts:
           path: /root/project
