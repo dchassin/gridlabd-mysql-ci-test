@@ -24,7 +24,7 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: Dump the database
-          command: mysqldump -h127.0.0.1 -uroot gridlabd > dump.sql 
+          command: mysqldump -h127.0.0.1 -uroot --all-databases > dump.sql 
       - run:
           name: Run the simulation
           command: gridlabd --debug --verbose test_mysql_collector.glm
