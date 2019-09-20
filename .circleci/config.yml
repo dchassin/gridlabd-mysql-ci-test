@@ -11,10 +11,19 @@ jobs:
           MYSQL_DATABASE=gridlabd
     steps:
       - checkout
+      - run
+        name: Install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: Run the simulation
-          command: |
-            gridlabd test_mysql_collector.glm
-            mysqldump -uroot gridlabd > dump.sql 
+          command: gridlabd test_mysql_collector.glm
+      - run:
+          name: Dump the database
+          command: mysqldump -uroot gridlabd > dump.sql 
       - store_artifacts:
           path: /root/project
