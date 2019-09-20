@@ -5,10 +5,7 @@ jobs:
       - image: gridlabd/slac-master:latest
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD=yes
-          MYSQL_USER=gridlabd
-          MYSQL_PASSWORD=gridlabd
-          MYSQL_DATABASE=gridlabd
+          MYSQL_ROOT_PASSWORD=gridlabd
     steps:
       - checkout
       - run:
@@ -24,12 +21,12 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: Dump the database
-          command: mysqldump -h127.0.0.1 -uroot --all-databases > dump.sql 
+          command: mysqldump -h127.0.0.1 -uroot -pgridlabd --all-databases > dump.sql 
       - run:
           name: Run the simulation
           command: gridlabd --debug --verbose test_mysql_collector.glm
       - run:
           name: Dump the database
-          command: mysqldump -h127.0.0.1 -h-uroot gridlabd > dump.sql 
+          command: mysqldump -h127.0.0.1 -uroot -pgridlabd gridlabd > dump.sql 
       - store_artifacts:
           path: /root/project
