@@ -8,8 +8,8 @@ module mysql;
 object database {
     hostname "127.0.0.1";
     schema "gridlabd";
-    username "gridlabd";
-    password "gridlabd";
+    username "root";
+    password "";
     port 3306;
     options NEWDB;
 }
