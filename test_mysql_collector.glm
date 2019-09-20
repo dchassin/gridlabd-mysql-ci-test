@@ -6,6 +6,11 @@ clock {
 
 module mysql;
 object database {
+    hostname "localhost";
+    schema "gridlabd";
+    username "gridlabd";
+    password "gridlabd";
+    port 3306;
     options NEWDB;
 }
 
