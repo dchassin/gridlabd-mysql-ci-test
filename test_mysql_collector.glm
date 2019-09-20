@@ -6,7 +6,7 @@ clock {
 
 module mysql;
 object database {
-    hostname "localhost";
+    hostname "127.0.0.1";
     schema "gridlabd";
     username "gridlabd";
     password "gridlabd";
