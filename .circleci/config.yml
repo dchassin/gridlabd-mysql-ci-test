@@ -2,12 +2,19 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gridlabd/mysql-server:latest
+      - image: gridlabd/slac-master:latest
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD=yes
+          MYSQL_USER=gridlabd
+          MYSQL_PASSWORD=gridlabd
+          MYSQL_DATABASE=gridlabd
     steps:
       - checkout
       - run:
           name: Run the simulation
           command: |
             gridlabd test_mysql_collector.glm
+            mysqldump -uroot gridlabd > dump.sql 
       - store_artifacts:
           path: /root/project
