@@ -17,8 +17,8 @@ jobs:
           environment:
             DOCKERIZE_VERSION: v0.3.0
       - run:
-          name: Install mysql-client
-          command: yum install mysql-client
+          name: Install mysql client
+          command: yum install mysql
       - run:
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
