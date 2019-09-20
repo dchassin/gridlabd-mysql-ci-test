@@ -1,0 +1,28 @@
+clock {
+    timezone PST+8PDT;
+    starttime '2000-01-01 00:00:00 PST';
+    stoptime '2000-01-02 00:00:00 PST';
+}
+
+module mysql;
+object database {
+    options NEWDB;
+}
+
+class test {
+    randomvar x[h];
+}
+
+object test:..10 {
+    x "type:normal(0,1); refresh:1min";
+}
+
+object collector {
+    property "mean(x),sum(x),count(x),std(x),min(x),max(x)";
+    group "class=test";
+    mode "w";
+    file "test_collector";
+    interval 1min;
+    limit 1000;
+}
+

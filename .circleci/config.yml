@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: gridlabd/mysql-server:latest
+    steps:
+      - checkout
+      - run:
+          name: Run the simulation
+          command: |
+            gridlabd test_mysql_collector.glm
+      - store_artifacts:
+          path: /root/project
